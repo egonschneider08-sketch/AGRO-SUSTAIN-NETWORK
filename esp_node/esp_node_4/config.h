@@ -5,7 +5,7 @@
 // IDENTIFICAÇÃO DO NÓ
 // Altere NODE_ID para cada ESP: 1, 2, 3 ou 4
 // ============================================
-#define NODE_ID             1
+#define NODE_ID             4
 
 // ============================================
 // OFFSET DE ENVIO (evita colisão entre nós)
