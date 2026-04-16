@@ -11,14 +11,16 @@ class ESPNowManager {
 public:
     bool begin();
     bool addPeer(const uint8_t* mac);
+    bool removePeer(const uint8_t* mac);          // ADICIONADO
     bool send(const uint8_t* mac, const uint8_t* data, size_t len);
     void onReceive(ReceiveCallback cb);
     void onSend(SendCallback cb);
     void getMac(uint8_t* mac);
+    bool hasPeer(const uint8_t* mac) const;       // ADICIONADO
 
 private:
     ReceiveCallback _recvCb = nullptr;
-    SendCallback _sendCb = nullptr;
+    SendCallback    _sendCb = nullptr;
 
     static void recvCallback(const uint8_t* mac, const uint8_t* data, int len);
     static void sendCallback(const uint8_t* mac, esp_now_send_status_t status);
