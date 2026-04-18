@@ -74,3 +74,5 @@ float ModbusSensor::readFloat(const uint16_t* registers, int regIndex) {
 
     return conv.f;
 }
+
+//comunicação com sensores via Modbus
