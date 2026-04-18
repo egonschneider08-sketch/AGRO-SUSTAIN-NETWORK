@@ -70,7 +70,7 @@ Cada nó coleta via sensor Modbus RS485 (NPK + pH + ambiente):
 ## Estrutura do Repositório
 
 ```
-agrotag-network/
+agro sustain-network/
 ├── common/               # Código compartilhado entre os nós ESP32
 │   ├── data_types.h      # Struct SensorData (37 bytes, packed)
 │   ├── esp_now_manager   # Abstração ESP-NOW
