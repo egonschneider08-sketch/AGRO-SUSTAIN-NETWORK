@@ -1,0 +1,78 @@
+# Agro sustain Network — Raspberry Pi Receiver
+
+## Dependências Python
+
+```
+RPi.GPIO>=0.7.1
+spidev>=3.6
+pyLoRa>=0.3.1
+```
+
+## Instalação
+
+```bash
+# 1. Habilite o SPI na Raspberry Pi
+sudo raspi-config
+# Interface Options → SPI → Enable
+
+# 2. Instale as dependências
+pip install RPi.GPIO spidev pyLoRa
+
+# 3. Clone ou copie os arquivos para a Raspberry
+#    receiver.py, dashboard.py, board_config.py
+```
+
+## Estrutura dos arquivos
+
+```
+rasp_lora_receiver/
+├── receiver.py       # Loop de recepção LoRa + salva no SQLite
+├── dashboard.py      # Dashboard de terminal em tempo real
+├── board_config.py   # Configuração de pinos SPI/GPIO
+└── requirements.txt  # Este arquivo
+```
+
+## Como usar
+
+### Terminal 1 — Receptor (sempre rodando)
+```bash
+python receiver.py
+```
+
+### Terminal 2 — Dashboard (opcional)
+```bash
+python dashboard.py
+# ou com intervalo customizado:
+python dashboard.py --interval 10
+```
+
+### Consultar banco de dados direto
+```bash
+sqlite3 agrotag.db "SELECT * FROM sensor_readings ORDER BY id DESC LIMIT 20;"
+```
+
+## Pinagem (Raspberry Pi → Ra-02 / RFM95)
+
+| Raspberry Pi     | Módulo LoRa |
+|------------------|-------------|
+| 3.3V  (Pin 1)    | VCC         |
+| GND   (Pin 6)    | GND         |
+| GPIO10 (Pin 19)  | MOSI        |
+| GPIO9  (Pin 21)  | MISO        |
+| GPIO11 (Pin 23)  | SCK         |
+| GPIO8/CE0 (Pin 24) | NSS/CS   |
+| GPIO22 (Pin 15)  | RST         |
+| GPIO25 (Pin 22)  | DIO0        |
+
+> Se usar pinos diferentes, edite as constantes em `board_config.py`.
+
+## Frequência
+
+Certifique-se que `LORA_FREQUENCY` em `receiver.py` é **igual** ao definido
+no ESP32 (`LORA_FREQUENCY 915E6` em `config.h`).
+
+| Região    | Frequência |
+|-----------|------------|
+| Américas  | 915 MHz    |
+| Europa    | 868 MHz    |
+| Ásia      | 433 MHz    |
