@@ -45,3 +45,5 @@
 #endif
 
 #endif // CONFIG_H
+
+//Configurações gerais pinos, IDs, frequência LoRa
